@@ -1,0 +1,30 @@
+    <%- include("../partials/head")  %>
+
+<body>
+    <%- include("../partials/navigation")  %>  
+
+    <div class="container p-5">
+     <%if (photo) {%>
+        <div class="row">
+            <div class="card-columns">
+             <% photo.forEach(function (photo) { %>
+                <div class="card animated fadeInDown">
+                  <a href="/photo/<%= photo._id %>"><img src="<%= photo.path %>" class="card-img-top" alt="Responsive image"></a>
+                    <div class="card-body">
+                      <p><%= format(photo.created_at) %></p>                       
+                     </div>
+                </div>
+              <% }) %>
+            </div>
+          </div>
+        <%} else { %>
+          <div class="card mx-auto">
+              <div class="card-body">
+                <h1>Hello <%= user.name %></h1>
+                <p clsss="lead">There are not Photo yet.</p>
+                <a href="/upload" class="btn btn-success btn-block">Create One!</a>
+              </div>
+            </div>
+        <% } %>
+    </div>
+  </body>

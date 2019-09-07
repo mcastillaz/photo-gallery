@@ -1,0 +1,4 @@
+# NPM packages folder.
+node_modules
+# upload files
+appWeb/public/photos/uploads/*
