@@ -7,14 +7,17 @@ const morgan = require('morgan');
 const multer = require('multer');
 const uuid = require('uuid/v4')//v4 genero un id aleatoriao
 const { format } = require('timeago.js');
+const bodyParser = require('body-parser');
 
 //Initializations
 const app = express();
 require('./db');
 require('./config/passport');
+const API = require('./routes/api');
 
 //Settings
-
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.set('port',process.env.PORT || 3000);//servidor de express
 app.set('view engine', 'ejs');//motor de plantillas ejs- se esta implementando las vistas
 app.set('views', path.join(__dirname,'views')); //para decirle nodejs que la carpeta views esta en esta direccion
@@ -68,6 +71,7 @@ app.use((req, res, next) => {
 app.use(require('./routes/index'));
 app.use(require('./routes/photo'));
 app.use(require('./routes/users'));
+app.use(API);
 
 //static files
 
