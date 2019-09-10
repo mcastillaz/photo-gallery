@@ -45,6 +45,7 @@ const updateAlbums = async function (req, res){
     try{
         const {id} = req.params;
         const updateAlbum = await Albums.findByIdAndUpdate(id, req.body, {new: true}).sort({ created_at: 'desc' });
+        if(!updateAlbum){res.status(400).json({message: 'Albums not fount'})}
         return res.status(200).json(updateAlbum);
     }catch(e){
         return res.status(500).json({message:e.message});
