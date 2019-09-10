@@ -31,17 +31,17 @@ const loginUser = async function(req, res) {
         const searchemail = await User.findOne({ email: req.body.email });
         if (!searchemail) return res.status(404).json({message:'No user found email.'});
         // check if the password is valid
-        const salt = await bcrypt.genSaltSync(10);
-        const password = await req.body.password;
-        const pass = bcrypt.hashSync(password, salt);
-        const passwordIsValid = bcrypt.compareSync(pass, searchemail.password);
+        //const salt = await bcrypt.genSaltSync(10);
+        //const password = await req.body.password;
+        //const pass = bcrypt.hashSync(password, salt);
+        const passwordIsValid = bcrypt.compareSync(req.body.password, searchemail.password);
         if (!passwordIsValid) return res.status(401).send({ message:'No user found password.'});
   
-         // create a token
-         req.user = user;
+        
+         
         
          // return the information including token as JSON
-        res.status(200).json({message:'You have successfully logged in', token: service.createToken(user)});
+        res.status(200).json({message:'You have successfully logged in', token: service.createToken(searchemail)});
     }catch(e){
 
         res.status(500).json({message:e.message});

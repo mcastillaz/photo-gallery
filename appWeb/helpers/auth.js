@@ -1,4 +1,5 @@
-const services = require('../services')
+const services = require('../services');
+
 
 function isAuth (req, res, next) {
   if (!req.headers.authorization) {
