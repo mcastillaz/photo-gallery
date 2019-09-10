@@ -1,4 +1,4 @@
-const User = require('../models/Albums');
+const Albums = require('../models/Albums');
 
 const newAlbums = async function (req, res){
     try{
@@ -10,7 +10,7 @@ const newAlbums = async function (req, res){
         newAlbums.userid = id;
         newAlbums.photo = photo;
         
-        await Albums.save(newAlbums);
+        await newAlbums.save(newAlbums);
         return res.status(200).json(newAlbums);
 
     }catch(e){
@@ -32,10 +32,10 @@ const allAlbums = async function (req, res) {
 
 const detailAlbums = async function (req, res){
     try{   
-    const {id} = req.params;
-       const detailAlbums = await detailAlbums.findById(id).sort({ created_at: 'desc' });
+       const {id} = req.params;
+       const detailAlbums = await Albums.findById(id).sort({ created_at: 'desc' });
        return res.status(200).json(detailAlbums);
-    }catch{
+    }catch(e){
         return res.status(500).json({ message: e.message });
     }
 
@@ -44,7 +44,7 @@ const detailAlbums = async function (req, res){
 const updateAlbums = async function (req, res){
     try{
         const {id} = req.params;
-        const updateAlbum = await detailAlbums.findByIdAndUpdate(id, req.body, {new: true}).sort({ created_at: 'desc' });
+        const updateAlbum = await Albums.findByIdAndUpdate(id, req.body, {new: true}).sort({ created_at: 'desc' });
         return res.status(200).json(updateAlbum);
     }catch(e){
         return res.status(500).json({message:e.message});
@@ -54,7 +54,7 @@ const updateAlbums = async function (req, res){
 const deleteAlbums = async function (req, res){
      try{
         const { id } = req.params;
-        const Album = await Albums.photo.findByIdAndDelete(id);
+        await Albums.photo.findByIdAndDelete(id);
         return res.status(200).json({ message: 'album photo deleted' });
 
      }catch(e){

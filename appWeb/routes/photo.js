@@ -21,23 +21,6 @@ router.get('/upload', (req, res) => {
     res.render('photos/upload-photo');
 });
 
-router.post('/upload',  async (req, res) => {
-    const photo = new Photo();
-    
-    photo.title = req.body.title;
-    photo.description = req.body.description;
-    photo.filename = req.file.filename;
-    photo.path = '/photos/uploads/' + req.file.filename;
-    photo.originalname = req.file.originalname;
-    photo.mimetype = req.file.mimetype;
-    photo.size = req.file.size;
-    photo.userid = req.user.id;//Se toma el id del usuario para enlazarlo con la foto
-    
-    await photo.save();
-    console.log(photo);
-    //console.log(req.file);//Description the file wthat upload - cuando se ejecuta el Middlewares un odjeto se guarda en file
-    res.redirect(301,'/photo');
-});
 
 router.get('/photo',  async (req, res) =>{
    
