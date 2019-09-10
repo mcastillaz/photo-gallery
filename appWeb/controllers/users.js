@@ -46,8 +46,17 @@ const loginUser = async function(req, res) {
 
 };
 
+const logoutUser = function(req,res){
+     try{
+        res.status(200).json({message: 'logout user', token: null});
+     }catch(e){
+        res.status(500).json({message:e.message});
+     }
+};
+
 
 module.exports = {
     neWusers,
-    loginUser
+    loginUser,
+    logoutUser
 }
