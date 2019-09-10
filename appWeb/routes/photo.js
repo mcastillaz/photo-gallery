@@ -21,7 +21,7 @@ router.get('/upload', (req, res) => {
     res.render('photos/upload-photo');
 });
 
-router.post('/upload', isAuthenticated, async (req, res) => {
+router.post('/upload',  async (req, res) => {
     const photo = new Photo();
     
     photo.title = req.body.title;
@@ -39,7 +39,7 @@ router.post('/upload', isAuthenticated, async (req, res) => {
     res.redirect(301,'/photo');
 });
 
-router.get('/photo', isAuthenticated, async (req, res) =>{
+router.get('/photo',  async (req, res) =>{
    
     console.log(req.user.id);
     const photo = await Photo.find({userid: req.user.id}).sort({created_at: 'desc'});

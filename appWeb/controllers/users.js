@@ -17,7 +17,7 @@ const neWusers = async function (req, res) {
         user.email = email;
         await user.save();
 
-        return res.status(201).send({ token: service.createToken(user) })
+        
         //return res.status(200).json(user);
        // }
     }catch (e) {
@@ -28,11 +28,14 @@ const neWusers = async function (req, res) {
 const loginUser = async function(req, res) {
     try{
         
-        const searchemail = await User.findOne({ email: req.body.email })
-        if (!searchemail) return res.status(404).json({message:'No user found.'});
+        const searchemail = await User.findOne({ email: req.body.email });
+        if (!searchemail) return res.status(404).json({message:'No user found email.'});
         // check if the password is valid
-        const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-        if (!passwordIsValid) return res.status(401).send({ message:'No user found.'});
+        const salt = await bcrypt.genSaltSync(10);
+        const password = await req.body.password;
+        const pass = bcrypt.hashSync(password, salt);
+        const passwordIsValid = bcrypt.compareSync(pass, searchemail.password);
+        if (!passwordIsValid) return res.status(401).send({ message:'No user found password.'});
   
          // create a token
          req.user = user;

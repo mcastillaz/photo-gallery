@@ -7,7 +7,7 @@ const albumController = require('../controllers/albums');
 
 //user
 router.post('/api/signup', userController.neWusers);
-//router.post('/api/signin', );
+router.post('/api/signin', userController.loginUser);
 
 
 //Photos
