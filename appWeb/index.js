@@ -12,11 +12,11 @@ const bodyParser = require('body-parser');
 //Initializations
 const app = express();
 require('./db');
-require('./config/passport');
+require('./services');
 const API = require('./routes/api');
 
 //Settings
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.set('port',process.env.PORT || 3000);//servidor de express
 app.set('view engine', 'ejs');//motor de plantillas ejs- se esta implementando las vistas

@@ -6,19 +6,9 @@ const bcrypt = require('bcryptjs');//Para cifrar ls contraseñas
 
 const UserSchema = new Schema({
   name: { type: String, required: true },
-  email: { type: String, required: true },
+  email: { type: String, unique: true, lowercase: true, required: true },
   password: { type: String, required: true },
   date: { type: Date, default: Date.now }
 });
-
-UserSchema.methods.encryptPassword = async (password) => {//
-  const salt = await bcrypt.genSalt(10);// las veces que utilizara el algorimo
-  const hash = await bcrypt.hash(password, salt);// obtener la contraseña cifrada
-  return hash;
-};
-
-UserSchema.methods.matchPassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
-};
 
 module.exports = mongoose.model('User', UserSchema);

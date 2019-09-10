@@ -69,7 +69,7 @@ const deletePhoto = async function (req, res) {
         const { id } = req.params;
         const photoDeleted = await Photo.findByIdAndDelete(id);
         await unlink(PATH.resolve('./appWeb/public' + photoDeleted.path));
-        return res.status(200).json({ message: 'Exitoso' });
+        return res.status(200).json({ message: 'the photo was deleted' });
 
     } catch (e) {
         return res.status(500).json({ message: e.message });

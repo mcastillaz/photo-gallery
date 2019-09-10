@@ -1,11 +1,20 @@
-const helpers = {};
+const services = require('../services')
 
-helpers.isAuthenticated = (req, res, next) => {
-    if(req.isAuthenticated()) {
-        return next();
-    }
-    req.flash('error_msg', 'Not Authorized');
-    res.redirect('/users/signin');
-};
+function isAuth (req, res, next) {
+  if (!req.headers.authorization) {
+    return res.status(403).send({ message: 'You do not have authorization' })
+  }
 
-module.exports = helpers;
+  const token = req.headers.authorization.split(' ')[1]
+
+  services.decodeToken(token)
+    .then(response => {
+      req.user = response
+      next()
+    })
+    .catch(response => {
+      res.status(response.status)
+    })
+}
+
+module.exports = isAuth
