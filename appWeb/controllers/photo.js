@@ -11,7 +11,7 @@ const uploadPhoto = async function (req, res) {
         const {title,originalname,mimetype,size,imageB64} =  req.body;
         const {id} = req.params; 
 
-        if(_.isEmpty(imageB64)) throw new Error('Es necesario subir una foto');
+        if(_.isEmpty(imageB64)) throw new Error('You need to upload a photo');
         let filename = uuid()+PATH.extname(originalname);
         let pathRelative ='/photos/uploads'
         let path =PATH.join(__dirname, '../public'+pathRelative);
@@ -29,7 +29,7 @@ const uploadPhoto = async function (req, res) {
         photo.size = size;
         photo.filename = filename;
         photo.path =  `${pathRelative}/${filename}`;
-        photo.userid = id;//Se toma el id del usuario para enlazarlo con la foto
+        photo.userid = id;
         await photo.save();
 
         return res.status(200).json(photo);

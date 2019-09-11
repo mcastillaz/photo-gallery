@@ -21,8 +21,8 @@ router.post('/api/search/:id/', auth, photoController.searchPhoto);
 router.post('/api/newAlbum/:id', auth, albumController.newAlbums);
 router.get('/api/allAlbum/:id', auth, albumController.allAlbums);
 router.get('/api/detailAlbum/:id', auth, albumController.detailAlbums);
-router.put('/api/updateAlbum/:id',auth, albumController.updateAlbums);
-router.delete('/api/deleteAlbum/:id,', auth, albumController.deleteAlbums);
+router.put('/api/updateAlbum/:id', auth, albumController.updateAlbums);
+router.delete('/api/deleteAlbum/:id', auth, albumController.deleteAlbums);
 
 
 module.exports = router; 

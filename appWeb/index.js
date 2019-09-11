@@ -1,32 +1,32 @@
 const express = require('express');
-const path = require('path');//modulo de node para direcctorios
-const session = require('express-session');//guardar los datos del usuario atravez de una sesion
+const path = require('path');
+const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const morgan = require('morgan');
 const multer = require('multer');
-const uuid = require('uuid/v4')//v4 genero un id aleatoriao
+const uuid = require('uuid/v4')
 const { format } = require('timeago.js');
 const bodyParser = require('body-parser');
 
 //Initializations
 const app = express();
 require('./db');
-require('./services');
+//require('./services/passport');
 const API = require('./routes/api');
 
 //Settings
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.set('port',process.env.PORT || 3000);//servidor de express
-app.set('view engine', 'ejs');//motor de plantillas ejs- se esta implementando las vistas
-app.set('views', path.join(__dirname,'views')); //para decirle nodejs que la carpeta views esta en esta direccion
+app.set('port',process.env.PORT || 3000);
+app.set('view engine', 'ejs');//
+app.set('views', path.join(__dirname,'views')); 
 
-//Middlewares funciones que Procesan cosas antes de llegar a las rutas - Implementar los modulos que instalè (Configuraciones)
-app.use(morgan('dev'));//para ir viendo las peticiones al servidor
-app.use(express.urlencoded({extended:false}));//entender lo que los formularios nos estan enviando.
+//Middlewares
+app.use(morgan('dev'));
 
-const storage_name = multer.diskStorage({//creando el nombre de la imagen
+
+const storage_name = multer.diskStorage({
    destination: path.join(__dirname, 'public/photos/uploads'),
    filename: (req, file, cb, filename) => {
        cb(null, uuid() + path.extname(file.originalname));
@@ -53,8 +53,8 @@ app.use(session({
   }));
 
 app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 
 //Global Variables
 app.use((req, res, next) => {

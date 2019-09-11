@@ -55,7 +55,7 @@ const updateAlbums = async function (req, res){
 const deleteAlbums = async function (req, res){
      try{
         const { id } = req.params;
-        await Albums.photo.findByIdAndDelete(id);
+        await Albums.findByIdAndDelete(id);
         return res.status(200).json({ message: 'album photo deleted' });
 
      }catch(e){

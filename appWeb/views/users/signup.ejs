@@ -1,10 +1,9 @@
-<%- include("../partials/head")%>
 
-    <%- include("../partials/navigation")%>
-    <div>
-
-    </div>
-<div class = "container">
+   <%- include("../partials/head")%>
+  
+       <%- include("../partials/navigation")%>
+                 
+  <div class = "container">
     <div class="row ">
         <div class="col-md-4 offset-md-4">
           <div class="card">
@@ -12,7 +11,7 @@
               Account Register 
             </div>
             <div class="card-body">
-              <form action="/users/singup" method="POST">
+              <form id= "registerUser" method="POST">
                 <div class="form-group">
                   <input type="text" class="form-control" name="name" placeholder="Name" >
                 </div>
@@ -22,10 +21,7 @@
                 <div class="form-group">
                   <input type="password" class="form-control" name="password" placeholder="Password">
                 </div>
-                <div class="form-group">
-                  <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
-                </div>
-                <button class="btn btn-secondary btn-lg btn-block">
+                <button class="btn btn-secondary btn-lg btn-block" type="submit" >
                   Signup 
                 </button>
               </form>
@@ -34,3 +30,4 @@
         </div>
       </div>
     </div>
+  
